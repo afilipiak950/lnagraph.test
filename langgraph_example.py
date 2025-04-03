@@ -27,8 +27,15 @@ class AgentState(TypedDict):
 # Erstelle einen einfachen Agenten
 def create_agent():
     logger.info("Erstelle Agenten...")
-    # Initialisiere das LLM
-    llm = ChatOpenAI(model="gpt-3.5-turbo")
+    # Initialisiere das LLM mit explizitem API-Key
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        raise ValueError("OPENAI_API_KEY nicht gefunden in den Umgebungsvariablen")
+    
+    llm = ChatOpenAI(
+        model="gpt-3.5-turbo",
+        api_key=api_key
+    )
     
     # Definiere die Agenten-Logik
     def agent(state: AgentState):
