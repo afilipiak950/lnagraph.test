@@ -3,20 +3,16 @@ from langgraph.graph import StateGraph
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain_openai import ChatOpenAI
 import os
-from dotenv import load_dotenv
 import logging
 
 # Konfiguriere Logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Lade die Umgebungsvariablen
-load_dotenv()
-
 # Überprüfe API-Key
 api_key = os.getenv("OPENAI_API_KEY")
 if not api_key:
-    raise ValueError("OPENAI_API_KEY nicht gefunden in .env Datei")
+    raise ValueError("OPENAI_API_KEY nicht gefunden in den Umgebungsvariablen")
 logger.info("API-Key gefunden")
 
 # Definiere den Zustandstyp
