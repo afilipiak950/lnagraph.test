@@ -9,11 +9,15 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# Debugging: Zeige alle Umgebungsvariablen
+logger.info("Verfügbare Umgebungsvariablen:")
+for key in os.environ:
+    if "OPENAI" in key or "API" in key:
+        logger.info(f"{key}: {'*' * len(os.environ[key])}")  # Verstecke den tatsächlichen Wert
+
 # Überprüfe API-Key
 api_key = os.getenv("OPENAI_API_KEY")
-if not api_key:
-    raise ValueError("OPENAI_API_KEY nicht gefunden in den Umgebungsvariablen")
-logger.info("API-Key gefunden")
+logger.info(f"API-Key gefunden: {'Ja' if api_key else 'Nein'}")
 
 # Definiere den Zustandstyp
 class AgentState(TypedDict):
